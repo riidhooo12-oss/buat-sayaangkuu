@@ -575,6 +575,30 @@
             }
         }
 
+        /* Keyboard Navigation Hint */
+        .keyboard-hint {
+            position: absolute;
+            bottom: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 25px;
+            padding: 12px 25px;
+            color: rgba(255,255,255,0.9);
+            font-size: 0.95rem;
+            font-weight: 500;
+            opacity: 0;
+            animation: fadeInHint 3s ease-in-out 2s forwards;
+        }
+
+        @keyframes fadeInHint {
+            to {
+                opacity: 1;
+            }
+        }
+
         /* Mobile Responsive */
         @media (max-width: 768px) {
             .container {
@@ -732,15 +756,20 @@
             </div>
 
             <!-- Navigation -->
-            <button class="nav-btn prev-btn" id="prevBtn">
+            <button class="nav-btn prev-btn" id="prevBtn" title="Sebelumnya (←)">
                 <i class="fas fa-chevron-left"></i>
             </button>
-            <button class="nav-btn next-btn" id="nextBtn">
+            <button class="nav-btn next-btn" id="nextBtn" title="Selanjutnya (→)">
                 <i class="fas fa-chevron-right"></i>
             </button>
 
             <!-- Dots -->
             <div class="dots" id="dots"></div>
+            
+            <!-- Keyboard Hint (Muncul 2 detik setelah envelope hilang) -->
+            <div class="keyboard-hint" id="keyboardHint">
+                Gunakan ← → atau klik tombol / dot untuk navigasi
+            </div>
         </div>
     </div>
 
@@ -762,6 +791,7 @@
                 this.music = document.getElementById('music');
                 this.envelopeScreen = document.getElementById('envelopeScreen');
                 this.envelope = document.getElementById('envelope');
+                this.keyboardHint = document.getElementById('keyboardHint');
 
                 this.createDots();
                 this.bindEvents();
@@ -772,13 +802,15 @@
             initEnvelope() {
                 this.envelope.addEventListener('click', () => {
                     this.envelope.classList.add('open');
-                    
-                    // Sound effect (optional - uncomment if you have click sound)
-                    // new Audio('click.mp3').play().catch(() => {});
-                    
                     setTimeout(() => {
                         this.envelopeScreen.classList.add('hidden');
-                        this.autoSlide();
+                        // Show keyboard hint after 2 seconds
+                        setTimeout(() => {
+                            this.keyboardHint.style.opacity = '1';
+                            setTimeout(() => {
+                                this.keyboardHint.style.opacity = '0';
+                            }, 3000);
+                        }, 2000);
                     }, 1800);
                 });
             }
@@ -795,9 +827,38 @@
             }
 
             bindEvents() {
+                // Mouse navigation
                 this.prevBtn.addEventListener('click', () => this.prevSlide());
                 this.nextBtn.addEventListener('click', () => this.nextSlide());
                 this.playBtn.addEventListener('click', () => this.toggleMusic());
+
+                // Keyboard navigation
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'ArrowLeft') this.prevSlide();
+                    if (e.key === 'ArrowRight') this.nextSlide();
+                });
+
+                // Touch/swipe support for mobile
+                let startX = 0;
+                let currentX = 0;
+
+                this.sliderContainer = document.querySelector('.slider-container');
+                this.sliderContainer.addEventListener('touchstart', (e) => {
+                    startX = e.touches[0].clientX;
+                });
+
+                this.sliderContainer.addEventListener('touchend', (e) => {
+                    currentX = e.changedTouches[0].clientX;
+                    const diffX = startX - currentX;
+                    
+                    if (Math.abs(diffX) > 50) { // Minimum swipe distance
+                        if (diffX > 0) {
+                            this.nextSlide(); // Swipe left -> next
+                        } else {
+                            this.prevSlide(); // Swipe right -> prev
+                        }
+                    }
+                });
             }
 
             goToSlide(n) {
@@ -827,12 +888,6 @@
                     this.playBtn.innerHTML = '<i class="fas fa-pause"></i>';
                 }
                 this.isPlayingMusic = !this.isPlayingMusic;
-            }
-
-            autoSlide() {
-                setInterval(() => {
-                    this.nextSlide();
-                }, 6000);
             }
 
             createFloatingHearts() {
