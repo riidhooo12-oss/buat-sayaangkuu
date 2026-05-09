@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Sayangku 💕</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #1a0b2e;
+            background-image: 
+                radial-gradient(circle at 20% 80%, rgba(120,119,198,0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255,119,198,0.3) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(120,219,255,0.2) 0%, transparent 50%);
+            min-height: 100vh;
+            overflow-x: hidden;
+            color: #f8f9ff;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 30px 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .header h1 {
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 700;
+            background: linear-gradient(135deg, #ff6b9d 0%, #c084fc 50%, #06ffa5 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 15px;
+            text-shadow: 0 4px 20px rgba(255,107,157,0.3);
+        }
+
+        .header p {
+            font-size: 1.3rem;
+            font-weight: 300;
+            color: rgba(248,249,255,0.8);
+            backdrop-filter: blur(10px);
+        }
+
+        .slider-container {
+            position: relative;
+            height: 75vh;
+            max-height: 650px;
+            margin: 40px 0;
+            perspective: 1000px;
+        }
+
+        .slider {
+            position: relative;
+            height: 100%;
+            border-radius: 28px;
+            overflow: hidden;
+            box-shadow: 
+                0 25px 50px rgba(0,0,0,0.4),
+                0 0 0 1px rgba(255,255,255,0.1);
+            background: rgba(255,255,255,0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transform: translateX(100%) rotateY(10deg) scale(0.9);
+            transition: all 1s cubic-bezier(0.23, 1, 0.32, 1);
+            padding: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .slide.active {
+            opacity: 1;
+            transform: translateX(0) rotateY(0deg) scale(1);
+        }
+
+        .slide.prev {
+            transform: translateX(-100%) rotateY(-10deg) scale(0.9);
+        }
+
+        /* Photo Slide */
+        .photo-slide {
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .photo-frame {
+            width: 320px;
+            height: 320px;
+            border-radius: 24px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 
+                0 20px 40px rgba(0,0,0,0.3),
+                inset 0 2px 10px rgba(255,255,255,0.1);
+            animation: photoFloat 4s ease-in-out infinite;
+        }
+
+        .photo-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .photo-frame:hover img {
+            transform: scale(1.05);
+        }
+
+        @keyframes photoFloat {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-12px) rotate(1deg); }
+        }
+
+        /* Couple Slide - 3 Photos */
+        .couple-slide {
+            background: linear-gradient(135deg, rgba(255,107,157,0.1), rgba(192,132,252,0.1));
+            flex-direction: column;
+            gap: 35px;
+        }
+
+        .couple-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 25px;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .couple-photo {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 
+                0 15px 35px rgba(0,0,0,0.3),
+                inset 0 1px 5px rgba(255,255,255,0.1);
+            transition: all 0.4s ease;
+            animation: coupleFloat 5s ease-in-out infinite;
+        }
+
+        .couple-photo:nth-child(1) { animation-delay: 0s; }
+        .couple-photo:nth-child(2) { animation-delay: -1s; }
+        .couple-photo:nth-child(3) { animation-delay: -2s; }
+
+        .couple-photo:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.4);
+        }
+
+        .couple-photo img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+        }
+
+        .photo-label {
+            position: absolute;
+            bottom: 12px;
+            left: 12px;
+            right: 12px;
+            background: linear-gradient(135deg, rgba(0,0,0,0.7), rgba(0,0,0,0.5));
+            color: white;
+            padding: 8px 12px;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            backdrop-filter: blur(10px);
+        }
+
+        @keyframes coupleFloat {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            33% { transform: translateY(-10px) rotate(1deg); }
+            66% { transform: translateY(-5px) rotate(-1deg); }
+        }
+
+        /* Message Slides */
+        .message-slide h2 {
+            font-size: clamp(2.2rem, 5vw, 3.5rem);
+            font-weight: 600;
+            background: linear-gradient(135deg, #ff6b9d, #c084fc, #06ffa5);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 25px;
+            line-height: 1.1;
+        }
+
+        .message-slide p {
+            font-size: 1.25rem;
+            line-height: 1.7;
+            color: rgba(248,249,255,0.9);
+            max-width: 650px;
+            margin: 0 auto;
+            font-weight: 300;
+        }
+
+        /* Music Slide */
+        .music-slide {
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .music-card {
+            background: linear-gradient(135deg, rgba(102,126,234,0.2), rgba(118,75,162,0.2));
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 24px;
+            padding: 45px 35px;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+
+        .music-title {
+            font-size: 2.2rem;
+            font-weight: 600;
+            margin-bottom: 25px;
+            background: linear-gradient(135deg, #ff6b9d, #c084fc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .play-btn {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #ff6b9d, #c44569);
+            border: 3px solid rgba(255,255,255,0.3);
+            font-size: 2.2rem;
+            color: white;
+            cursor: pointer;
+            margin: 20px auto;
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+            box-shadow: 
+                0 15px 35px rgba(255,107,157,0.4),
+                inset 0 1px 0 rgba(255,255,255,0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        .play-btn:hover {
+            transform: translateY(-5px) scale(1.08);
+            box-shadow: 
+                0 25px 50px rgba(255,107,157,0.5),
+                inset 0 1px 0 rgba(255,255,255,0.3);
+        }
+
+        .music-info {
+            font-size: 1.1rem;
+            color: rgba(248,249,255,0.8);
+            font-weight: 400;
+        }
+
+        /* Quote Slide */
+        .quote-container {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .quote {
+            font-size: 2rem;
+            font-style: italic;
+            color: rgba(248,249,255,0.9);
+            line-height: 1.5;
+            position: relative;
+            margin-bottom: 30px;
+            font-weight: 300;
+        }
+
+        .quote::before {
+            content: '“';
+            font-size: 5rem;
+            color: #ff6b9d;
+            position: absolute;
+            top: -15px;
+            left: -10px;
+            font-weight: 200;
+        }
+
+        .author {
+            font-size: 1.2rem;
+            color: #c084fc;
+            font-weight: 500;
+            text-align: right;
+            margin-top: 15px;
+        }
+
+        /* Navigation */
+        .nav-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.2);
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            color: white;
+            font-size: 1.3rem;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            z-index: 100;
+        }
+
+        .nav-btn:hover {
+            background: rgba(255,255,255,0.25);
+            transform: translateY(-50%) scale(1.15);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+        }
+
+        .prev-btn { left: 25px; }
+        .next-btn { right: 25px; }
+
+        /* Dots */
+        .dots {
+            position: absolute;
+            bottom: 35px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 12px;
+        }
+
+        .dot {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.3);
+            cursor: pointer;
+            transition: all 0.4s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .dot.active {
+            background: linear-gradient(135deg, #ff6b9d, #c084fc);
+            transform: scale(1.4);
+            box-shadow: 0 0 20px rgba(255,107,157,0.5);
+        }
+
+        /* Floating Hearts */
+        .hearts {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .heart {
+            position: absolute;
+            font-size: 18px;
+            animation: floatHeart 8s linear infinite;
+            filter: drop-shadow(0 0 10px currentColor);
+        }
+
+        @keyframes floatHeart {
+            0% {
+                transform: translateY(100vh) rotate(0deg) scale(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+                scale: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg) scale(0);
+                opacity: 0;
+            }
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px 15px;
+            }
+            
+            .slider-container {
+                height: 70vh;
+            }
+            
+            .photo-frame {
+                width: 260px;
+                height: 260px;
+            }
+            
+            .couple-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .couple-photo img {
+                height: 150px;
+            }
+            
+            .nav-btn {
+                width: 48px;
+                height: 48px;
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="hearts" id="hearts"></div>
+    
+    <div class="container">
+        <div class="header">
+            <h1>Happy Birthday Sayangku</h1>
+            <p>Tahun ini dan selamanya bersamamu 💕</p>
+        </div>
+
+        <div class="slider-container">
+            <div class="slider">
+                <!-- Slide 1: Foto Pacar -->
+                <div class="slide active photo-slide">
+                    <div class="photo-frame">
+                        <img src="sayang.jpeg" alt="Foto Pacarku">
+                    </div>
+                </div>
+
+                <!-- Slide 2: 3 Foto Couple -->
+                <div class="slide couple-slide">
+                    <div class="couple-grid">
+                        <div class="couple-photo">
+                            <img src="bokem.jpeg" alt="Foto Kamu">
+                            <div class="photo-label">gemeshh 💕</div>
+                        </div>
+                        <div class="couple-photo">
+                            <img src="imup.jpeg" alt="Foto Pacar">
+                            <div class="photo-label">sayangku 💙</div>
+                        </div>
+                        <div class="couple-photo">
+                            <img src="roket.jpeg" alt="Foto Bersama">
+                            <div class="photo-label">cintakuu 💖</div>
+                        </div>
+                        <div class="couple-photo">
+                            <img src="roket.jpeg" alt="Foto Bersama">
+                            <div class="photo-label">princessku 👸💖</div>
+                            
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Slide 3: Ucapan -->
+                <div class="slide message-slide">
+                    <div>
+                        <h2>Selamat Ulang Tahun Sayang! 🎂</h2>
+                        <p>selamat bertambah usia sayaangkuu, dan selamat 20 sayanagkuuu!! semoga panjang umur, sehat selalu, dilancarkan rezekinya, dimudahkan segala urusannya, Aamiin. Kamu harus bahagia hari ini sayaangg karena ini hari dimana kamu lahir di dunia sayaangkuu, gabolee sedii harus bahagia pokoknyaa!! ILYYY BBY 💕</p>
+                    </div>
+                </div>
+
+                <!-- Slide 4: Music -->
+                <div class="slide music-slide">
+                    <div class="music-card">
+                        <div class="music-title">Lagu Untukmu 💖</div>
+                        <button class="play-btn" id="playBtn">
+                            <i class="fas fa-play"></i>
+                        </button>
+                        <div class="music-info">"ini abadi" - Perunggu</div>
+                        <audio id="music" preload="auto">
+                            <source src="cut.mp3" type="audio/mp3">
+                        </audio>
+                    </div>
+                </div>
+
+                <!-- Slide 5: Quote -->
+                <div class="slide">
+                    <div class="quote-container">
+                        <div class="quote">
+                            Cinta itu bukan menatap satu sama lain, 
+                            tapi menatap ke arah yang sama bersamanya.
+                        </div>
+                        <div class="author">- Antoine de Saint-Exupéry</div>
+                    </div>
+                </div>
+
+                <!-- Slide 6: Janji -->
+                <div class="slide message-slide">
+                    <div>
+                        <h2>i wish</h2>
+                        <p>semoga kita selalu menjadi pasangan yang memiliki tujuan yang sama, saling mecintai, menyayangi, dan berjuang untuk hal hal yang akan datang nanti sampai kita berdua bisa mewujudkan segala niat baik itu 🫶💕</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Navigation -->
+            <button class="nav-btn prev-btn" id="prevBtn">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <button class="nav-btn next-btn" id="nextBtn">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+
+            <!-- Dots -->
+            <div class="dots" id="dots"></div>
+        </div>
+    </div>
+
+    <script>
+        class BirthdaySlider {
+            constructor() {
+                this.currentSlide = 0;
+                this.totalSlides = 6;
+                this.isPlayingMusic = false;
+                this.init();
+            }
+
+            init() {
+                this.slides = document.querySelectorAll('.slide');
+                this.prevBtn = document.getElementById('prevBtn');
+                this.nextBtn = document.getElementById('nextBtn');
+                this.dotsContainer = document.getElementById('dots');
+                this.playBtn = document.getElementById('playBtn');
+                this.music = document.getElementById('music');
+
+                this.createDots();
+                this.bindEvents();
+                this.createFloatingHearts();
+                this.autoSlide();
+            }
+
+            createDots() {
+                for(let i = 0; i < this.totalSlides; i++) {
+                    const dot = document.createElement('div');
+                    dot.classList.add('dot');
+                    if(i === 0) dot.classList.add('active');
+                    dot.addEventListener('click', () => this.goToSlide(i));
+                    this.dotsContainer.appendChild(dot);
+                }
+                this.dots = document.querySelectorAll('.dot');
+            }
+
+            bindEvents() {
+                this.prevBtn.addEventListener('click', () => this.prevSlide());
+                this.nextBtn.addEventListener('click', () => this.nextSlide());
+                this.playBtn.addEventListener('click', () => this.toggleMusic());
+            }
+
+            goToSlide(n) {
+                this.slides[this.currentSlide].classList.remove('active');
+                this.dots[this.currentSlide].classList.remove('active');
+                
+                this.currentSlide = (n + this.totalSlides) % this.totalSlides;
+                
+                this.slides[this.currentSlide].classList.add('active');
+                this.dots[this.currentSlide].classList.add('active');
+            }
+
+            nextSlide() {
+                this.goToSlide(this.currentSlide + 1);
+            }
+
+            prevSlide() {
+                this.goToSlide(this.currentSlide - 1);
+            }
+
+            toggleMusic() {
+                if(this.isPlayingMusic) {
+                    this.music.pause();
+                    this.playBtn.innerHTML = '<i class="fas fa-play"></i>';
+                } else {
+                    this.music.play().catch(e => console.log('Audio play failed'));
+                    this.playBtn.innerHTML = '<i class="fas fa-pause"></i>';
+                }
+                this.isPlayingMusic = !this.isPlayingMusic;
+            }
+
+            autoSlide() {
+                setInterval(() => {
+                    this.nextSlide();
+                }, 6000);
+            }
+
+            createFloatingHearts() {
+                const heartsContainer = document.getElementById('hearts');
+                setInterval(() => {
+                    const heart = document.createElement('div');
+                    heart.classList.add('heart');
+                    const hearts = ['💕','💖','💗','💘','💝','💟'];
+                    heart.innerHTML = hearts[Math.floor(Math.random()*hearts.length)];
+                    heart.style.left = Math.random() * 100 + 'vw';
+                    heart.style.animationDuration = (Math.random() * 4 + 6) + 's';
+                    heart.style.color = `hsl(${Math.random()*60 + 300}, 70%, 70%)`;
+                    heartsContainer.appendChild(heart);
+
+                    setTimeout(() => heart.remove(), 10000);
+                }, 800);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            new BirthdaySlider();
+        });
+    </script>
+</body>
+</html>
